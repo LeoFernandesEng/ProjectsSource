@@ -19,8 +19,8 @@ public:
     int indiceChar(char var);
     void lengthChar(const char* var);
     char* upperChar(int a, int b);
-    char* lowerChar(int var1, int var2);
-    char* toggleChar(char var1, char var2);
+    char* lowerChar(int a, int b);
+    char* toggleChar(int a, int b);
     String();
     String(char);
     String(const char*);
@@ -42,44 +42,60 @@ String::String(const char* var) { // (Item a - iii )
         //varString1 = new String(var);
 }//Construtor com paramentro string
 
-
-char* String::upperChar(int a, int b) {
+char* String::lowerChar(int a, int b) {
 
     String* varString1 = new String(varString);
     char* var = new char[varString1->sizeChar()];
+    int i;
 
-    int i,j;
-
-    for (j = 0; varString[j] != '\0'; j++);
-        var[j] = varString[j];
-
-    for (i = 0 ; var[i] != '\0'; i++)
-    {
-        if (i > a && i < b) {
-            if (var[i] >= 'a' && var[i] <= 'z')
-                var[i] -= 32;
+    for (i = 0; i <= varString1->sizeChar(); i++) {
+        var[i] = varString[i];
+        if (i >= a && i < b) {
+            if (var[i] >= 'A' && var[i] <= 'Z') { // >= 66 && <= 90 pela tabela ascii
+                var[i] = var[i] - ('A' - 'a');
+                //var[i] += 32; // pela tabela ASCii
+            }
         }
     }
     return var;
 }
 
-char* String::lowerChar(int a, int b) {
+char* String::upperChar(int a, int b) {
 
     String* varString1 = new String(varString);
     char* var = new char[varString1->sizeChar()];
+    int i;
 
-    int i,j;
-
-    for (j = 0; varString[j] != '\0'; j++); {
-        var[j] = varString[j];
-    }
-    for (i = 0; var[i] != '\0'; i++)
-    {
-        if (i > a && i < b) {
-            if (var[i] >= 65 && var[i] <= 92)
+    for (i = 0; i <= varString1->sizeChar(); i++) {
+        var[i] = varString[i];
+        if (i >= a && i < b) {
+            if (var[i] >= 'a' && var[i] <= 'z') // >= 97 && <= 122 pela tabela ascii
             {
-                //var[i] = var[i] + 32;
-                var[i] += 32;
+                var[i] = var[i] + ('A' - 'a');
+                //var[i] -= 32; // pela tabela ASCii
+            }
+        }
+    }
+    return var;
+}
+
+char* String::toggleChar(int a, int b) {
+    
+    String* varString1 = new String(varString);
+    char* var = new char[varString1->sizeChar()];
+    int i;
+
+    for (i = 0; i <= varString1->sizeChar(); i++) {
+        var[i] = varString[i];
+        if (i >= a && i < b) {
+            if (var[i] >= 'a' && var[i] <= 'z') // >= 97 && <= 122 pela tabela ascii
+            {
+                var[i] = var[i] + ('A' - 'a');
+                //var[i] -= 32; // pela tabela ASCii
+            }
+            else if(var[i] >= 'A' && var[i] <= 'Z'){ // >= 66 && <= 90 pela tabela ascii
+                var[i] = var[i] - ('A' - 'a');
+                //var[i] += 32; // pela tabela ASCii
             }
         }
     }
@@ -88,10 +104,9 @@ char* String::lowerChar(int a, int b) {
 
 int String::sizeChar() { // (Item e )
     int i;
-    //cout << varString;
-    for ( i = 0; varString[i] != '\0'; i++ ) {
-        //cout << "Letter: " << varString[i] << endl;
-     }
+
+    for (i = 0; varString[i] != '\0'; i++);
+
     return i;
  }
 
@@ -123,34 +138,74 @@ int String::indiceChar(char var) { // (Item f )
 }
 
 void begin(String* var) {
-    int sizeString, indiceString, resposta;
+    int sizeString, indiceString, resposta = 0, a = 0, b = 0;
     char r;
 
     
-        system("cls");
-        cout << "String: " << var << endl;
-        cout << " ---------------------------------------------------------------------------" << endl;
-        cout << "| 1 - Tamanho da String                                                     |" << endl;
-        cout << "| 2 - indice de um caractere especifico                                     |" << endl;
-        cout << "| 3 - Exit                                                                  |" << endl;
-        cout << " ---------------------------------------------------------------------------" << endl;
-        cout << "\nQual operacao deseja fazer com a string selecionada ?: ";
-        cin >> resposta;
+        
 
-        while (resposta != 3) {
+        while (resposta != 9) {
+            system("cls");
+            cout << "String: " << var << endl;
+            cout << " ---------------------------------------------------------------------------" << endl;
+            cout << "| 1 - size()                                                                |" << endl;
+            cout << "| 2 - indice()                                                              |" << endl;
+            cout << "| 3 - upperCase()                                                           |" << endl;
+            cout << "| 4 - lowerCase()                                                           |" << endl;
+            cout << "| 5 - toggleCase()                                                          |" << endl;
+            cout << "| 9 - Exit                                                                  |" << endl;
+            cout << " ---------------------------------------------------------------------------" << endl;
+            cout << "\nQual operacao deseja fazer com a string selecionada ?: ";
+            cin >> resposta;
         switch (resposta)
         {
         case 1:
             cout << "\nSelecionado: "<< resposta << endl;
             sizeString = var->sizeChar();
             cout << "O tamanho da string e : " << sizeString << endl;
+            _getch();
+            break;
         case 2:
             cout << "\nSelecionado: "<< resposta << endl;
             cout << "Qual o caractere voce deseja retornar o indice? ";
             cin >> r;
             indiceString = var->indiceChar(r);
             cout << "\nO indice retonardo e : " << indiceString << endl;
+            _getch();
+            break;
         case 3:
+            cout << "\nSelecionado: " << resposta << endl;
+            cout << "informe o intervalo que deseja fazer" << endl;
+            cout << "1º indice: ";
+            cin >> a;
+            cout << "2º indice: ";
+            cin >> b;
+            cout << var->upperChar(a, b);
+            _getch();
+            break;
+        case 4:
+            cout << "\nSelecionado: " << resposta << endl;
+            cout << "informe o intervalo que deseja fazer" << endl;
+            cout << "informe o intervalo que deseja fazer" << endl;
+            cout << "1º indice: ";
+            cin >> a;
+            cout << "2º indice: ";
+            cin >> b;
+            cout << var->lowerChar(a, b);
+            _getch();
+            break;
+        case 5:
+            cout << "\nSelecionado: " << resposta << endl;
+            cout << "informe o intervalo que deseja fazer" << endl;
+            cout << "informe o intervalo que deseja fazer" << endl;
+            cout << "1º indice: ";
+            cin >> a;
+            cout << "2º indice: ";
+            cin >> b;
+            cout << var->toggleChar(a, b);
+            _getch();
+            break;
+        case 9: 
             break;
         default:
             break;
@@ -160,43 +215,31 @@ void begin(String* var) {
 
 int main()
 {
-    String* varA = new String("Eduardo");
+   /* String* var;
+    char* primeiroNome = new char[100];
+    cout << "Qual seu primeiro nome ? ";
+    cin >> primeiroNome;
+    const char* a = primeiroNome;
+    var = new String(a);
+    cout << "size: "<< var->sizeChar() << endl;
+    cout << a << endl;
+    cout <<"upperCase => " << var->upperChar(0, var->sizeChar()) << endl;
+    cout <<"lowerCase => " << var->lowerChar(0, var->sizeChar()) << endl;
+    cout <<"toggleCase => " << var->toggleChar(0, var->sizeChar()) << endl;
+    */
 
-    cout << varA->sizeChar();
-    cout << varA->lowerChar(0, 2);
-    // String a = b + "qualquer coisa"
+
+    // mudança na questão "c" String a = b + "qualquer coisa"
     
     //setlocale(LC_ALL, "pt-br");
 
-    /*const char* nomeA = "Leonardo"; 
-    const char* nomeB = "Eduardo"; 
-    const char* nomeC = "Eriko";
+    String* var;
+    char* primeiroNome = new char[100];
+    cout << "Qual seu primeiro nome ? ";
+    cin >> primeiroNome;
+    const char* a = primeiroNome;
+    var = new String(a);
+    begin(var);
 
-    String* varA; 
-    String* varB; 
-    String* varC; 
-    
-    int resposta,sizeString, indiceString;
-    
-    cout << "1 - String: " << nomeA << "\n2 - String: " << nomeB << "\n3 - String: " << nomeC << endl;
-    cout << "\nQual String deseja selecionar(1, 2 ou 3) ? ";
-    cin >> resposta;
-
-    switch (resposta)
-    {
-    case 1:
-        //varA = new String(nomeA);
-        begin(new String(nomeA));
-    case 2:
-        //varB = new String(nomeB);
-        begin(new String(nomeB));
-        break;
-    case 3:
-        //varC = new String(nomeC);
-        begin(new String(nomeC));
-    default:
-        break;
-    }*/
-    
     _getch();
 }
