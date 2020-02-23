@@ -240,6 +240,4 @@ int main()
     const char* a = primeiroNome;
     var = new String(a);
     begin(var);
-
-    _getch();
 }
