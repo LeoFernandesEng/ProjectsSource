@@ -15,6 +15,8 @@ private:
     char varChar;
     const char* varString;
 public:
+    int x = 10;
+    int y = 20;
     const char* viewString();
     int sizeChar();
     int sizeTeste();
@@ -23,11 +25,17 @@ public:
     char* upperChar(int a, int b);
     char* lowerChar(int a, int b);
     char* toggleChar(int a, int b);
-    char* operator+(String& var);
-    bool operator==(const String& var);
+    bool operator==(String* var);
+    bool operator!=(String* var);
+    bool operator>(String* var);
+    bool operator<(String* var);
+    bool operator<=(String* var);
+    bool operator>=(String* var);
+    String operator[](int var);
     String();
     String(char);
     String(const char*);
+
 }; //Fim da classe String
     
 String::String() {
@@ -57,6 +65,10 @@ char* String::lowerChar(int a, int b) {
 
     while (i <= varString1->sizeChar()) {
         var[i] = varString[i];
+        if((b > varString1->sizeChar()) || (a > varString1->sizeChar()) || (a < 0) || (b < 0)){
+            cout << "Foi inserido intervalos nao adequados" << endl;
+            break;
+        }
         if (i >= a && i < b) {
             if (var[i] >= 'A' && var[i] <= 'Z') { // >= 66 && <= 90 pela tabela ascii
                 var[i] = var[i] - ('A' - 'a');
@@ -76,6 +88,10 @@ char* String::upperChar(int a, int b) {
 
     while ( i <= varString1->sizeChar()) {
         var[i] = varString[i];
+        if ((b > varString1->sizeChar()) || (a > varString1->sizeChar()) || (a < 0) || (b < 0)) {
+            cout << "Foi inserido intervalos nao adequados" << endl;
+            break;
+        }
         if (i >= a && i < b) {
             if (var[i] >= 'a' && var[i] <= 'z') // >= 97 && <= 122 pela tabela ascii
             {
@@ -96,6 +112,10 @@ char* String::toggleChar(int a, int b) {
 
     for (i = 0; i <= varString1->sizeChar(); i++) {
         var[i] = varString[i];
+        if ((b > varString1->sizeChar()) || (a > varString1->sizeChar()) || (a < 0) || (b < 0)) {
+            cout << "Foi inserido intervalos nao adequados" << endl;
+            break;
+        }
         if (i >= a && i < b) {
             if (var[i] >= 'a' && var[i] <= 'z') // >= 97 && <= 122 pela tabela ascii
             {
@@ -141,7 +161,7 @@ int String::indiceChar(char var) { // (Item f )
 
     for (i = 0; varString[i] != '\0'; i++) {
         if ((varString[i] == varLower) || (varString[i] == varUpper)) {
-            cout << "indice " << i << " - caractere: '" << varString[i] << "'" << endl;
+            //cout << "indice " << i << " - caractere: '" << varString[i] << "'" << endl;
             verifica = true;
             return i;
         }
@@ -160,23 +180,79 @@ int String::sizeChar(char* var) { // (Item e )
     return i;
 }
 
-/*bool String::operator==(const String& var) {
-    int i;
-    bool verifica = false;
+bool String::operator==(String* var){
     String* varString1 = new String(varString);
-
-    for (i = 0; i <= varString1->sizeChar(); i++) {
-        if (var[i] == varString1[i]) {
-            verifica = true;
-        }
-    }
-    if (verifica == true) {
+    if (varString1 == var) {
         return true;
     }
     else {
         return false;
     }
-}*/
+}
+
+bool String::operator!=(String* var) {
+    String* varString1 = new String(varString);
+    if (varString1 != var) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+bool String::operator>(String* var) {
+    String* varString1 = new String(varString);
+    if (varString1 > var) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+bool String::operator<(String* var) {
+    String* varString1 = new String(varString);
+    if (varString1 < var) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+bool String::operator>=(String* var) {
+    String* varString1 = new String(varString);
+    if (varString1 >= var) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+bool String::operator<=(String* var) {
+    String* varString1 = new String(varString);
+    if (varString1 <= var) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+String String::operator[](int indice){
+    String* varString1 = new String(varString);
+    char* var = new char[varString1->sizeChar()];
+    int i = 0;
+
+    while (i <= varString1->sizeChar()) {
+        var[i] = varString[i];
+        if (i == indice) {
+            return var[i];
+        }
+        i++;
+    }
+}
 
 void begin(String* var) {
     int indiceString, resposta = 0, a = 0, b = 0;
@@ -264,18 +340,12 @@ int main()
     // mudança na questão "c" String a = b + "qualquer coisa"
     //setlocale(LC_ALL, "pt-br");
     String* var;
-    //String* teste = new String("teste");
+    //String* teste = new String("Leonardo");
     bool verifica;
     char* primeiroNome = new char[100];
     cout << "Qual seu primeiro nome ? ";
     cin >> primeiroNome;
-    cin.ignore();
     const char* a = primeiroNome;
     var = new String(a);
-
-    //verifica = var->operator==("teste");
-    //cout << verifica;
-
-    //_getch();
     begin(var);
 }
