@@ -15,8 +15,6 @@ private:
     char varChar;
     const char* varString;
 public:
-    int x = 10;
-    int y = 20;
     const char* viewString();
     int sizeChar();
     int sizeTeste();
