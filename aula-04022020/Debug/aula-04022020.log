@@ -1,0 +1,5 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(459,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (aula-04022020.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  aula-04022020.cpp
+C:\Users\leonardofernandes\source\repos\aula-04022020\aula-04022020\aula-04022020.cpp(268,10): warning C4101: 'verifica': variável local não referenciada
+C:\Users\leonardofernandes\source\repos\aula-04022020\aula-04022020\aula-04022020.cpp(152): warning C4715: 'String::indiceChar': nem todos os caminhos de controle retornam um valor
+  aula-04022020.vcxproj -> C:\Users\leonardofernandes\source\repos\aula-04022020\Debug\Trabalho1 - SO.exe
