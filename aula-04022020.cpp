@@ -311,7 +311,6 @@ void begin(String* var) {
         case 5:
             cout << "\nSelecionado: " << resposta << endl;
             cout << "informe o intervalo que deseja fazer" << endl;
-            cout << "informe o intervalo que deseja fazer" << endl;
             cout << "1º indice: ";
             cin >> a;
             cout << "2º indice: ";
